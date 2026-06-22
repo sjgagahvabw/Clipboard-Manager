@@ -52,9 +52,11 @@ struct ContentView: View {
                 searchBar
                 Divider().opacity(0.3)
                 itemList
+                Divider().opacity(0.3)
+                footer
             }
         }
-        .frame(width: 380, height: 480)
+        .frame(width: 380, height: 495)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 
@@ -151,6 +153,37 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .transition(.opacity)
+    }
+
+    private var footer: some View {
+        HStack {
+            Button(action: {
+                NSApplication.shared.terminate(nil)
+            }) {
+                HStack(spacing: 4) {
+                    Image(systemName: "power")
+                        .font(.system(size: 9))
+                    Text("Quit")
+                        .font(.system(size: 10))
+                }
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .fill(Color.red.opacity(0.08))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .stroke(Color.red.opacity(0.15), lineWidth: 1)
+                )
+            }
+            .buttonStyle(.plain)
+            .help("Quit Clipboard Manager")
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
     }
 
     private var listContent: some View {
